@@ -10,6 +10,7 @@ readme = "README.md"
 python = ">=3.10,<3.13"
 rich = "^13.7.1"
 pyinstaller = "^6.8.0"
+pymongo = "^4.8.0"
 
 
 [build-system]

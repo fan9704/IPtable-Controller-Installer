@@ -13,6 +13,7 @@
 - Python 3.10^
 - Poetry 1.8^
 - Linux/Unix Like System
+- docker/docker-compose
 
 ---
 

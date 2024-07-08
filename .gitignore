@@ -3,6 +3,8 @@
 
 build/
 dist/
-main.spec
 
 __pycache__/
+
+# Clone Project
+IPtable-Controller-*
