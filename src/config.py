@@ -2,22 +2,24 @@ import platform
 import subprocess
 import re
 
+from src.interface.config import Config
 from rich import print
 from rich.prompt import Prompt
 
 
 
-def get_configs():
+def get_configs()->Config:
     HOST_IP = "127.0.0.1"
     IS_SINGLE_NODE = True
     MASTER_IP = "127.0.0.1"
     IS_MASTER = False
 
+    ipv4_regex = re.compile(r'^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
     def get_host_ip():
         global HOST_IP
         user_input = Prompt.ask("Enter HOST IP Address:")
         # IPv4 Rule
-        ipv4_regex = re.compile(r'^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
+        
         if(bool(ipv4_regex.match(user_input))):
             HOST_IP = user_input
         else:
@@ -28,7 +30,6 @@ def get_configs():
         global MASTER_IP
         user_input = Prompt.ask("Enter MASTER IP Address:")
         # IPv4 Rule
-        ipv4_regex = re.compile(r'^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
         if(bool(ipv4_regex.match(user_input))):
             MASTER_IP = user_input
         else:
@@ -72,7 +73,7 @@ def get_configs():
     # Infra Config
     # --------------------------------
     # MongoDB Configuration
-    MONGO_DB_HOST=HOST_IP
+    MONGO_DB_HOST="127.0.0.1"
     MONGO_DB_USERNAME="test"
     MONGO_DB_PASSWORD="123456"
     MONGO_DB_DATABASE="network"
@@ -90,7 +91,7 @@ def get_configs():
     RABBIT_MQ_USERNAME="guest"
     RABBIT_MQ_PASSWORD="guest"
     
-    config = {
+    config:Config = {
         "HOST_IP": HOST_IP,
         "IS_SINGLE_NODE": IS_SINGLE_NODE,
         "MASTER_IP": MASTER_IP,

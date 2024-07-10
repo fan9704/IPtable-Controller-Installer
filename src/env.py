@@ -1,12 +1,12 @@
-import logging
 import os
 
 from rich import print
-from rich.prompt import Prompt
+from src.interface.config import Config
 
-def set_environment_variables(config: dict):
+def set_environment_variables(config: Config):
     print("Setting Environment Variables...")
     os.environ["HOST_IP"] = config["HOST_IP"]
+    os.environ["VITE_HOST_IP"] = config["HOST_IP"]
     # MongoDB Configuration
     os.environ["MONGO_DB_HOST"] = config["MONGO_DB_HOST"]
     os.environ["MONGO_DB_DATABASE"] = config["MONGO_DB_DATABASE"]
@@ -26,9 +26,3 @@ def set_environment_variables(config: dict):
     os.environ["RABBIT_MQ_USERNAME"] = config["RABBIT_MQ_USERNAME"]
     os.environ["RABBIT_MQ_PASSWORD"] = config["RABBIT_MQ_PASSWORD"]
     print("[green]Environment Variables Setup Completed[/green]")
-
-def application_package_install():
-    # curl net-tools docker docker-compose git
-
-    # Check Host CPU Architecture00
-    pass
