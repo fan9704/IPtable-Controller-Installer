@@ -1,22 +1,27 @@
-import subprocess
+import os 
+import time
 
 from rich import print
-from rich.prompt import Prompt
+from src.interface.config import Config
+from src.constant import  PROJECT_PATH
+from src.helper.mongo import create_mongo_user
+from src.helper.backend import set_up_backend
+from src.helper.frontend import set_up_frontend
 
-SLAVE_PROJECT_NAME = "IPtable-Controller-Backend"
-SLAVE_PROJECT_URL = f"https://github.com/fan9704/{SLAVE_PROJECT_NAME}.git"
-
-
-def set_slave_node(config:dict):
+def set_slave_node(config:Config):
     print("Setting Slave Node")
-    # Backend
-    p = subprocess.Popen(["git","clone",SLAVE_PROJECT_URL])
-    p.wait()
+    os.chdir(PROJECT_PATH)
     
-    p = subprocess.Popen(["cd",SLAVE_PROJECT_NAME,"&&","docker-compose","up","-d"])
-    p.wait()
-    # TODO: Connect to Mongo and Create User
-
-    print("[green]Slave Node Setup Completed[/green]")
+    # Backend
+    set_up_backend("SLAVE")
+    # Connect to Mongo and Create User
+    time.sleep(3)
+    create_mongo_user(config)
+    print("[blue]Mongo DB Complete[/blue]")
+    print("[green]Slave Node Backend Setup Completed[/green]")
     # Frontend
-    # TODO: Setup Frontend
+    os.chdir(PROJECT_PATH)
+    set_up_frontend("SLAVE")
+    # Frontend Setup Complete
+    print("[green]Slave Node Frontend Setup Completed[/green]")
+    print("[bold green]Slave Node Setup Completed[/bold green]")

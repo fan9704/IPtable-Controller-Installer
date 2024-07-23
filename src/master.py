@@ -1,24 +1,22 @@
-import subprocess
+import os
 
 from rich import print
-from rich.prompt import Prompt
+from src.interface.config import Config
+from src.constant import PROJECT_PATH
+from src.helper.backend import set_up_backend
+from src.helper.frontend import set_up_frontend
 
-MASTER_PROJECT_NAME = "IPtable-Controller-Master-Backend"
-MASTER_PROJECT_URL = f"https://github.com/fan9704/{MASTER_PROJECT_NAME}.git"
-
-def set_master_node(config:dict):
+def set_master_node(config:Config):
     print("Setting Master Node")
-    if(config["IS_SINGLE_MODE"]):
-        print("[red]Master Node is Disabled[/red]")
-        
+    if(config["IS_SINGLE_NODE"]):
+        print("[red] Master Node is Disabled [/red]")
     else:
         # Backend
-        print("[green]Master Node is Enabled[/green]")
-        p = subprocess.Popen(["git","clone",MASTER_PROJECT_URL])
-        p.wait()
-        
-        p = subprocess.Popen(["cd",MASTER_PROJECT_NAME,"&&","docker-compose","up","-d"])
-        p.wait()
-        print("[green]Master Node Setup Completed[/green]")
+        set_up_backend("MASTER")
+        print("[green]Master Node Backend Setup Completed[/green]")
         # Frontend
-        # TODO: Setup Frontend
+        os.chdir(PROJECT_PATH)
+        set_up_frontend("MASTER")
+        # Frontend Setup Complete
+        print("[green]Master Node Frontend Setup Completed[/green]")
+        print("[bold green]Master Node Setup Completed[/bold green]")
