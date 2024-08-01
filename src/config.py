@@ -6,13 +6,16 @@ from src.interface.config import Config
 from rich import print
 from rich.prompt import Prompt
 
-
+HOST_IP = "127.0.0.1"
+MASTER_IP = "127.0.0.1"
+IS_SINGLE_NODE = True
+IS_MASTER = False
 
 def get_configs()->Config:
-    HOST_IP = "127.0.0.1"
-    IS_SINGLE_NODE = True
-    MASTER_IP = "127.0.0.1"
-    IS_MASTER = False
+    # global HOST_IP
+    # IS_SINGLE_NODE = True
+    # global MASTER_IP
+    # IS_MASTER = False
 
     ipv4_regex = re.compile(r'^((25[0-5]|2[0-4]\d|[01]?\d\d?)\.){3}(25[0-5]|2[0-4]\d|[01]?\d\d?)$')
     def get_host_ip():
@@ -56,6 +59,8 @@ def get_configs()->Config:
     user_input = Prompt.ask("Single Node mode?", choices=["y", "n"], default="y")
     if(user_input == "n"):
         # Is Cluster Mode
+        global IS_MASTER
+        global IS_SINGLE_NODE
         IS_SINGLE_NODE = False
         user_input = Prompt.ask("Is this machine a Master Node?",choices=["y", "n"], default="y")
         if(user_input == "y"):
