@@ -23,6 +23,7 @@ jobs:
           python_ver: '3.10'
           spec: 'main.spec'
           requirements: 'requirements.txt'
+          upload_exe_with_name: 'IPC-Installer-Windows'
           options: --icon=./doc/logo.ico,--name "IPC-Installer"
   pyinstaller-linux-build:
     runs-on: ubuntu-latest
@@ -38,4 +39,5 @@ jobs:
           python_ver: '3.10'
           spec: 'main.spec'
           requirements: 'requirements.txt'
+          upload_exe_with_name: 'IPC-Installer-Linux'
           options: --icon=./doc/logo.ico, --name "IPC-Installer"
