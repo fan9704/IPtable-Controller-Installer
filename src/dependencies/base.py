@@ -10,8 +10,8 @@ def check_installation():
     # 定義安裝命令
     install_commands = {
         'windows': ['powershell', '-Command', 'Install-Module -Name DockerMsftProvider -Repository PSGallery -Force'],
-        'linux': ['sudo', 'apt-get', 'install', '-y', 'docker.io', 'docker-compose'],
-        'darwin': ['brew', 'install', 'docker', 'docker-compose']
+        'linux': ['sudo', 'apt-get', 'install', '-y', 'docker.io', 'docker-compose','curl', 'git', 'iptables-persistent', 'net-tools'],
+        'darwin': ['brew', 'install', 'docker', 'docker-compose', 'curl', 'git', 'netstat']
     }
 
     # 檢查 Docker 和 Docker Compose 是否已經安裝
